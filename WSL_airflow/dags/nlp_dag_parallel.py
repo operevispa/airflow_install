@@ -9,7 +9,7 @@ from rake_nltk import Rake
 import os
 import json
 
-# DAG arguments
+# DAG аргументы
 default_args = {
     'owner': 'nlp_airflow_1',
     'depends_on_past': False,
@@ -18,7 +18,7 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-# Create DAG
+# создание DAG
 dag = DAG(
     'nlp_processing_pipeline',
     default_args=default_args,
@@ -39,7 +39,7 @@ def initialize_nlp(**context):
 
 def load_text(**context):
     """Load text from file"""
-    # Example text if file doesn't exist
+    # пример текста, если текст не загружен
     default_text = """
     Обработка естественного языка (NLP) - это раздел искусственного интеллекта,
     который помогает компьютерам понимать, интерпретировать и манипулировать
@@ -121,9 +121,9 @@ def summarize_results(**context):
     summary = {
         'text_statistics': text_stats,
         'sentiment_analysis': sentiment,
-        'pos_tags': pos_tags[:10],  # First 10 tags
+        'pos_tags': pos_tags[:10],  
         'named_entities': entities,
-        'keywords': keywords[:5]  # Top 5 keywords
+        'keywords': keywords[:5]  
     }
     
     # Сохраняем результаты в JSON файл
@@ -137,7 +137,7 @@ def summarize_results(**context):
     return summary
 
 
-# Create tasks
+# Создание задач
 init_nlp_task = PythonOperator(
     task_id='init_nlp',
     python_callable=initialize_nlp,
@@ -194,10 +194,10 @@ summary_task = PythonOperator(
     dag=dag,
 )
 
-# Define task dependencies
+# Определение зависимостей
 init_nlp_task >> load_text_task
 
-# Parallel processing after text loading
+# параллельные задачи после загрузки текста
 load_text_task >> [
     basic_stats_task,
     sentiment_task,
