@@ -77,7 +77,10 @@
 
 8. Создайте тестовый DAG в директории dags/
 
-9. Проверьте работу Airflow:
+9. Запустить docker compose
+    ```docker-compose up```
+
+11. Проверьте работу Airflow:
     - Откройте браузер и перейдите по адресу http://localhost:8080
     - Логин: airflow
     - Пароль: airflow
